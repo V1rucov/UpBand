@@ -1,0 +1,35 @@
+﻿@model upband.Models.LoginViewModel
+@{
+    Layout = null;
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/accountform.css" />
+</head>
+<body>
+
+    <div class="account-box">
+        <div style="align-content:flex-start;">
+            <img src="~/static-files/logo.svg" height="45" width="160" style="color:black">
+        </div>
+        <h2>Вход</h2>
+        <h3 style="color:green;">@ViewData["result"]</h3>
+        <form asp-action="Login" asp-controller="Account" method="post" name="demo-form">
+            <div>
+                <input asp-for="Email" placeholder="Эл.почта" class="user-data" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <input asp-for="Password" type="password" placeholder="пароль" class="user-data" />
+                <span asp-validation-for="Password"></span>
+            </div>
+
+            <div><input type="submit" class="login-button" value="войти"></div>
+
+        </form>
+        <form asp-action="Registration" asp-controller="Account" method="get">
+            <input class="login-button" asp-action="Registration" asp-controller="Account" value="регистрация" type="submit" />
+        </form>
+        
+    </div>
+</body>

@@ -1,0 +1,23 @@
+﻿@model List<playlist>
+@{
+    Layout = "_Layout";
+}
+<div style="width: 100%;height: 90px;background-color: #0F0F0F";>
+</div>
+
+<div class="playlist-list">
+    <div class="favorite-songs">
+        Любимые песни ♡
+    </div>
+    @foreach (var cc in Model)
+     {
+        <div class="playlist-box">
+            <div class="logo-note">
+                <img src="~/static-files/note.svg" width="245" height="125">
+            </div>
+            <div class="info-box">
+                <p>@cc.Name</p>
+            </div>
+        </div>
+     }
+</div>

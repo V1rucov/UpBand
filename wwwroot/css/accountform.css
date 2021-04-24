@@ -1,0 +1,63 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+*{
+	font-family:Montserrat;
+}
+body {
+	background: rgb(216,237,237);
+	background: linear-gradient(90deg, rgba(216,237,237,1) 0%, rgba(197,197,236,1) 21%, rgba(184,204,185,1) 50%, rgba(230,231,216,1) 72%, rgba(238,220,229,1) 100%);
+	align-content: center;
+	align-items: center;
+	text-align: center;
+}
+div.account-box {
+	margin:auto;
+	align-items: flex-start;
+	text-align: left;
+	border: medium;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	width: 350px;
+	padding: 45px;
+	align-items: flex-start;
+	margin-bottom: 15px;
+	margin-top:10vh;
+}
+.user-data{
+	border:none;
+	margin-top: 2vh;
+	border-bottom: thin;
+}
+.login-button {
+	margin-top: 15px;
+	background-color: #333333ff;
+	color: white;
+	border: none;
+	padding: 8px;
+	text-decoration: none;
+	width: 350px;
+}
+span {
+	color:red;
+	font-size:10px;
+}
+@media only screen and (max-width:768px) {
+	body {
+		background: none;
+		background-color: white;
+	}
+	div.account-box {
+		box-shadow:none;
+	}
+	.login-button {
+		
+		margin:auto;
+	}
+	.user-data {
+		padding:10px;
+	}
+	a {
+		text-align:center;
+		font-size:10px;
+		width:350px;
+	}
+}

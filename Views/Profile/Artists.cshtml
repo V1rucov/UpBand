@@ -1,0 +1,14 @@
+﻿@model user
+@{ 
+    Layout = "_Layout";
+}
+<div style="width: 100%; min-height: 100vh; height: 100%;">
+    @if (Model.UserProfile.Subscriptions.Count == 0)
+    {
+        <h1>Тут пусто.</h1>
+    }
+    else foreach (var cc in Model.UserProfile.Subscriptions)
+        {
+            <p>@cc.BandName</p>
+        }
+</div>

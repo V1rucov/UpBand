@@ -1,0 +1,16 @@
+﻿@model List<artist>
+<div class="index-first">
+    <p class="index-big">Рок-музыка со всего света.</p>
+    <p class="index-first-small">Ну, не только рок...</p>
+    <a class="button" style="margin-top:100px; background-color:black;" href="@Context.Request.Scheme://@Context.Request.Host/Account/Registration">регистрация</a>
+</div>
+
+<div class="index-second">
+    <p class="index-big">Только лучшие исполнители</p>
+    @foreach (var cc in Model) { 
+        <div class="artist-index">
+            <p>@cc.BandName</p>
+            <img src="@Url.Content(@cc.LogoPath)">
+        </div>
+     }
+</div>

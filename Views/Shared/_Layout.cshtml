@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script src="~/js/site.js"></script>
+    </head>
+    <body>
+        <header>
+            <a href="/"><img src="~/static-files/logo.svg" width="150" height="50"></a>
+            <button class="openbtn" onclick="openNav()">☰</button>
+            @if (Context.User.Identity.IsAuthenticated)
+            {
+                <div class="pc-nav-bar">
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Account/Profile">Профиль</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlists?UserName=@Context.User.Identity.Name">Плейлисты</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Artists?UserName=@Context.User.Identity.Name">Исполнители</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Home/Search">Поиск</a>
+                    <a class="small" href="@Context.Request.Scheme://@Context.Request.Host/Account/Logout">выйти</a>
+                </div>
+                <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Account/Profile">Профиль</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlists?UserName=@Context.User.Identity.Name">Плейлисты</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Artists?UserName=@Context.User.Identity.Name">Исполнители</a>
+                    <a href="@Context.Request.Scheme://@Context.Request.Host/Home/Search">Поиск</a>
+                    <br />
+                    <a class="small" href="@Context.Request.Scheme://@Context.Request.Host/Account/Logout">выйти</a>
+                </div>
+            }
+            else
+            {
+                <div class="pc-nav-bar">
+                    <a href="#">Поддержка</a>
+                    <a class="small" href="@Context.Request.Scheme://@Context.Request.Host/Account/Login">войти</a>
+                </div>
+                <div id="mySidebar" class="sidebar">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+                    <a href="#">Поддержка</a>
+                    <br />
+                    <a class="small" href="@Context.Request.Scheme://@Context.Request.Host/Account/Login">войти</a>
+                </div>
+            }
+        </header>
+
+        <div class="container">
+            <main role="main" class="main">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="footer">
+            <ul>
+                <li><a href="@Context.Request.Scheme://@Context.Request.Host/Artist/RegisterArtist">для музыкантов</a></li>
+                <li><a href="#">пользовательское соглашение</a></li>
+                <li><a href="#">Конфиденциальность</a></li>
+            </ul>
+
+            <ul>
+                <li><a href="#">поддержка</a></li>
+                <li><a href="#">обо мне</a></li>
+            </ul>
+        </footer>
+    </body>
+</html>
