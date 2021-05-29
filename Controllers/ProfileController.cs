@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using upband.Models;
 using upband.Data;
 using upband.Data.Entities;
+
 namespace upband.Controllers
 {
     [Authorize]
@@ -20,10 +21,12 @@ namespace upband.Controllers
     {
         private readonly DataBaseContext dataBaseContext;
         private readonly UserManager<user> userManager;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public ProfileController(UserManager<user> _userManager, DataBaseContext _dataBaseContext) {
+        public ProfileController(UserManager<user> _userManager, DataBaseContext _dataBaseContext, IWebHostEnvironment _webHostEnvironment) {
             dataBaseContext = _dataBaseContext;
             userManager = _userManager;
+            webHostEnvironment = _webHostEnvironment;
         }
         [HttpGet]
         public IActionResult Playlists(string UserName) {
@@ -42,6 +45,11 @@ namespace upband.Controllers
             if (Id != 0)
             {
                 playlist Playlist = await dataBaseContext.playlists.Where(p => p.Id == Id).Include(p => p.Owner).Include(p => p.Songs).FirstOrDefaultAsync();
+                if (HttpContext.User.Identity.Name ==  Playlist.Owner.UserName) {
+                    ViewData["IsOwner"] = "true";
+                }
+                else ViewData["IsOwner"] = "false";
+
                 if (Playlist != null)
                     return View(Playlist);
                 else return Redirect("/404");
@@ -53,7 +61,7 @@ namespace upband.Controllers
             if (PlaylistName != null) {
                 user User = await dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name).Include(u => u.UserProfile)
                     .ThenInclude(p=>p.Playlists).FirstOrDefaultAsync();
-                playlist Playlist = new playlist() { Name = PlaylistName+User.UserProfile.Playlists.Count, Owner = User.UserProfile };
+                playlist Playlist = new playlist() { Name = PlaylistName, Owner = User };
                 User.UserProfile.Playlists.Add(Playlist);
                 await dataBaseContext.playlists.AddAsync(Playlist);
                 await dataBaseContext.SaveChangesAsync();
@@ -61,11 +69,37 @@ namespace upband.Controllers
             }
             else return Redirect("/404");
         }
+        [HttpGet]
+        public IActionResult CustomizePlaylist(int PlaylistId)
+        {
+            ViewData["PlaylistId"] = PlaylistId.ToString();
+            return View();
+        }
         [HttpPost]
-        public async Task<IActionResult> AddToFavorite(int SongId) {
-            if (SongId != 0)
+        public async Task<IActionResult> CustomizePlaylist(CustomizePlaylistViewModel model) {
+            playlist P = await dataBaseContext.playlists.Where(p => p.Id == model.PlaylistId).FirstOrDefaultAsync();
+            if (dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name).Include(u=>u.UserProfile.Playlists).FirstOrDefault().UserProfile.Playlists.Contains(P))
             {
-                song Song = await dataBaseContext.songs.Where(s => s.Id == SongId).FirstOrDefaultAsync();
+                if (model.Logo != null) {
+                    string FilePath = @"\static-files\";
+                    var filestream1 = new FileStream(webHostEnvironment.WebRootPath + FilePath + model.PlaylistId + "PlaylistLogo.png", FileMode.Create); //webHostEnvironment.WebRootPath
+                    await model.Logo.CopyToAsync(filestream1);
+                    filestream1.Close();
+                    P.LogoPath = FilePath + model.PlaylistId + "PlaylistLogo.png";
+                }
+                P.Name = model.Name;
+                P.Description = model.Description;
+                await dataBaseContext.SaveChangesAsync();
+                return Redirect("/");
+            }
+            else return Redirect("/404");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToFavorite(string SongId) {
+            if (SongId != null)
+            {
+                int sId = int.Parse(SongId);
+                song Song = await dataBaseContext.songs.Where(s => s.Id == sId).FirstOrDefaultAsync();
                 user User = await dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name).Include(u => u.UserProfile).FirstOrDefaultAsync();
                 if (Song != null && User != null)
                 {
@@ -75,6 +109,22 @@ namespace upband.Controllers
                 }
             }
             return Redirect("/");
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddToPlaylist(int PlaylistId, int SongId) {
+            user User = await dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name)
+                .Include(u => u.UserProfile.Playlists.Where(p => p.Id == PlaylistId)).FirstOrDefaultAsync();
+            if (User.UserProfile.Playlists != null)
+            {
+                song Song = await dataBaseContext.songs.Where(s => s.Id == SongId).FirstOrDefaultAsync();
+                User.UserProfile.Playlists[0].Songs.Add(Song);
+                await dataBaseContext.SaveChangesAsync();
+                return Redirect("/Profile/Playlist?Id=" + PlaylistId);
+            }
+            else {
+                return Redirect("/");
+            }
+            
         }
         [HttpGet]
         public async Task<IActionResult> Artists(string UserName) {

@@ -14,6 +14,6 @@ namespace upband.Data.Entities
         public string Lyrics { get; set; }
         public string Name { get; set; }
         public int ArtistId { get; set; }
-        public artist Artist { get; set; }
+        public user Artist { get; set; }
     }
 }

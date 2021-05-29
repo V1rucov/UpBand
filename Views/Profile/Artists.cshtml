@@ -1,7 +1,26 @@
 ﻿@model user
-@{ 
-    Layout = "_Layout";
+@{
+    Layout = "_Profile";
 }
+<style>
+    a.artists-a-under {
+        border-bottom: solid;
+        border-bottom-color: #2a2d2e;
+    }
+</style>
+
+
+<div style="padding:10px">
+    <div class="user-profile-box">
+        <p style="font-size:20px;">@Context.Request.Query["UserName"].ToString()</p>
+    </div>
+
+    <div class="profile-nav-bar">
+        <a class="playlist-a-under" href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlists?UserName=@Context.User.Identity.Name">Плейлисты</a>
+        <a class="artists-a-under" href="@Context.Request.Scheme://@Context.Request.Host/Profile/Artists?UserName=@Context.User.Identity.Name">Исполнители</a>
+    </div>
+</div>
+
 <div style="width: 100%; min-height: 100vh; height: 100%;">
     @if (Model.UserProfile.Subscriptions.Count == 0)
     {

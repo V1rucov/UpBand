@@ -27,10 +27,19 @@ namespace upband.Controllers
             dataBaseContext = _dataBaseContext;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<artist> artists = await dataBaseContext.artists.ToListAsync();
-            return View(artists);
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Profile/Playlists?UserName="+HttpContext.User.Identity.Name);
+            }
+            else {
+                List<artist> artists = new List<artist>();
+                artists.Add(dataBaseContext.artists.ToList()[0]);
+                //artists.Add(dataBaseContext.artists.ToList()[1]);
+                //artists.Add(dataBaseContext.artists.ToList()[2]);
+                return View(artists);
+            }
         }
         public IActionResult Privacy()
         {
@@ -47,6 +56,12 @@ namespace upband.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        /*[HttpGet]
+        public IActionResult Search() {
+            return View();
+        */
+        [Route("Search")]
         [HttpGet]
         public async Task<IActionResult> Search(string query) {
             List<artist> Artists = await dataBaseContext.artists.Where(a => a.BandName.Contains(query)).ToListAsync();

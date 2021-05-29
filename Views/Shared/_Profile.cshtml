@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="~/css/profile.css" />
+    <script src="~/js/site.js"></script>
+</head>
+<body>
+    <div style="width:100vw; height:3px; background-color:whitesmoke; margin-top:20px; position:absolute; margin-right:10px; top:70px;"></div>
+    <div class="profile-container">
+        <div class="profile-search-box">
+            <div style="padding:10px">
+                <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlists?UserName=@Context.User.Identity.Name"><img src="~/static-files/logoblack.svg" width="150" height="50"></a>
+                <form method="get" asp-action="Search" asp-controller="Home">
+                    <input type="text" name="query" placeholder="песня, альбом, исполнитель" autocomplete="off">
+                </form>
+            </div>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <div class="music-player">
+        <audio class="audio-player" src="@Context.Request.Scheme://@Context.Request.Host/audio/The White Stripes - Seven Nation Army.mp3" controls id="audioplayer">
+            
+        </audio>
+    </div>
+
+    <footer class="footer">
+        <ul>
+            <li><a href="@Context.Request.Scheme://@Context.Request.Host/Artist/RegisterArtist">для музыкантов</a></li>
+            <li><a href="#">пользовательское соглашение</a></li>
+            <li><a href="#">Конфиденциальность</a></li>
+        </ul>
+
+        <ul>
+            <li><a href="#">поддержка</a></li>
+            <li><a href="#">обо мне</a></li>
+        </ul>
+    </footer>
+</body>
+</html>

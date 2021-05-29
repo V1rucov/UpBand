@@ -1,7 +1,33 @@
 ﻿@model playlist
 @{ 
-    Layout = "_Layout";
+    Layout = "_Profile";
 }
-<div>
+<div class="playlist-generic">
+    <div class="playlist-page-bar">
+        <div class="playlist-page-logo">
+            @if (Model.LogoPath != null)
+             {
+                <img src="@Url.Content(Model.LogoPath)" width="180" height="180">
+             }
+            else
+            {
+                <img src="~/static-files/noteblack.svg" width="180" height="150" style="margin-top:16px">
+            }
+        </div>
 
+        @if ((string)ViewData["IsOwner"] == "true")
+         {
+            <a style="text-decoration:none; color:white" href="@Context.Request.Scheme://@Context.Request.Host/Profile/CustomizePlaylist?PlaylistId=@Model.Id">настройки</a>
+         }
+        <p>@Model.Name</p>
+    </div>
+</div>
+
+<div class="playlist-songs-list">
+    @foreach (var cc in Model.Songs) { 
+        <div class="song-in-list">
+            <a href="#">@cc.Artist.ArtistProfile.BandName</a>
+            <p>@cc.Name</p>
+        </div>
+     }
 </div>

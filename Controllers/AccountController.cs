@@ -69,7 +69,7 @@ namespace upband.Controllers
         public async Task<IActionResult> ConfirmRegistration(string Email, string Token)
         {
             user User = userManager.FindByEmailAsync(Email).Result;
-            if (Email != null && Token != null)
+            if (Email != null && Token != null && User !=null)
             {
                 var result = await userManager.ConfirmEmailAsync(User, Token);
                 if (result.Succeeded)
@@ -92,21 +92,28 @@ namespace upband.Controllers
             if (ModelState.IsValid)
             {
                 userManager.PasswordHasher = passwordHasher;
-                var User = userManager.FindByEmailAsync(model.Email);
-                if (User.Result.EmailConfirmed == false)
+                user User = userManager.FindByEmailAsync(model.Email).Result;
+                if (User != null)
                 {
-                    ModelState.AddModelError("Email", "Вы не подтвердили электронную почту.");
-                    return View(model);
+                    if (User.EmailConfirmed == false)
+                    {
+                        ModelState.AddModelError("Email", "Вы не подтвердили электронную почту.");
+                        return View(model);
+                    }
+                    var cc = User;
+                    if (cc.PasswordHash == passwordHasher.HashPassword(cc, model.Password + model.Email.Length))
+                    {
+                        await signInManager.SignInAsync(cc, false);
+                        return Redirect("/Home/Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Email", "Неправильный адрес почты или пароль.");
+                        return View(model);
+                    }
                 }
-                var cc = User.Result;
-                if (cc.PasswordHash == passwordHasher.HashPassword(cc, model.Password + model.Email.Length))
-                {
-                    await signInManager.SignInAsync(cc, false);
-                    return Redirect("/Home/Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("Email", "Неправильный адрес почты или пароль.");
+                else {
+                    ModelState.AddModelError("Email", "Такого аккаунта нет!");
                     return View(model);
                 }
             }

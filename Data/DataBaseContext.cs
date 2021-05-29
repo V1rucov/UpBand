@@ -17,11 +17,7 @@ namespace upband.Data
             //Database.EnsureDeleted();
         }
         public new void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<user>()
-                .HasOne(u => u.ArtistProfile);
 
-            modelBuilder.Entity<user>()
-                .HasOne(u => u.UserProfile);
         }
         public DbSet<user> users { get; set; }
         public DbSet<artist> artists { get; set; }

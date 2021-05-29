@@ -1,0 +1,12 @@
+﻿@{ 
+    Layout = "_Profile";
+}
+@model CustomizePlaylistViewModel
+
+<form method="post" asp-action="CustomizePlaylist" asp-controller="Profile" enctype="multipart/form-data">
+    <input asp-for="Name" type="text">
+    <input asp-for="Description" type="text">
+    <input asp-for="Logo" type="file">
+    <input asp-for="PlaylistId" type="hidden" value="@ViewData["PlaylistId"]">
+    <input type="submit">
+</form>

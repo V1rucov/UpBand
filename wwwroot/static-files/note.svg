@@ -7,86 +7,57 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="Capa_1"
-   x="0px"
-   y="0px"
-   viewBox="0 0 366.313 366.313"
-   style="enable-background:new 0 0 366.313 366.313;"
-   xml:space="preserve"
+   version="1.0"
+   width="960.000000pt"
+   height="1280.000000pt"
+   viewBox="0 0 960.000000 1280.000000"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg8"
    sodipodi:docname="note.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
-   id="metadata38"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-   id="defs36" /><sodipodi:namedview
-   pagecolor="#ffffff"
-   bordercolor="#666666"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="1920"
-   inkscape:window-height="1017"
-   id="namedview34"
-   showgrid="false"
-   inkscape:zoom="1.6407847"
-   inkscape:cx="98.37284"
-   inkscape:cy="200.62746"
-   inkscape:window-x="-8"
-   inkscape:window-y="-8"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="Capa_1"
-   inkscape:document-rotation="0" />
-<path
-   id="XMLID_526_"
-   d="M113.156,61.11v188.63c-6.257-2.212-12.985-3.428-20-3.428c-33.137,0-60,26.863-60,60s26.863,60,60,60  s60-26.863,60-60v-174.8l140-40V199.74c-6.257-2.212-12.985-3.428-20-3.428c-33.137,0-60,26.863-60,60s26.863,60,60,60  s60-26.863,60-60V0L113.156,61.11z"
-   style="fill:#999999" />
-<g
-   id="g3">
-</g>
-<g
-   id="g5">
-</g>
-<g
-   id="g7">
-</g>
-<g
-   id="g9">
-</g>
-<g
-   id="g11">
-</g>
-<g
-   id="g13">
-</g>
-<g
-   id="g15">
-</g>
-<g
-   id="g17">
-</g>
-<g
-   id="g19">
-</g>
-<g
-   id="g21">
-</g>
-<g
-   id="g23">
-</g>
-<g
-   id="g25">
-</g>
-<g
-   id="g27">
-</g>
-<g
-   id="g29">
-</g>
-<g
-   id="g31">
-</g>
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview10"
+     showgrid="false"
+     inkscape:zoom="0.49804688"
+     inkscape:cx="640"
+     inkscape:cy="853.33333"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <metadata
+     id="metadata2">
+Created by potrace 1.15, written by Peter Selinger 2001-2017
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     transform="translate(0.000000,1280.000000) scale(0.100000,-0.100000)"
+     fill="#000000"
+     stroke="none"
+     id="g6"
+     style="fill:#ffffff">
+    <path
+       d="M6060 11646 l-3125 -632 -3 -4047 c-1 -2226 -4 -4047 -7 -4047 -3 0 -29 20 -59 44 -141 114 -382 176 -689 176 -394 0 -806 -184 -1200 -534 -307 -273 -516 -606 -594 -947 -26 -113 -23 -368 5 -472 91 -334 353 -574 707 -648 104 -22 308 -26 425 -9 531 80 1068 424 1375 885 114 170 193 351 242 555 17 71 18 266 20 4085 l3 4011 2913 587 c1601 324 2915 588 2920 587 4 0 7 -1598 7 -3551 l0 -3550 -42 34 c-162 131 -372 189 -698 190 -144 0 -192 -3 -273 -21 -485 -107 -998 -471 -1302 -923 -71 -105 -155 -277 -194 -394 -86 -261 -79 -546 18 -760 119 -262 391 -459 704 -510 401 -65 955 117 1343 440 342 285 547 596 642 975 l27 105 2 4503 3 4502 -22 -1 c-13 0 -1429 -285 -3148 -633z"
+       id="path4"
+       style="fill:#ffffff" />
+  </g>
 </svg>

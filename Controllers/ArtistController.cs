@@ -105,6 +105,23 @@ namespace upband.Controllers
             return Redirect("/");
         }
         [HttpPost]
+        public async Task<IActionResult> AddSongToAlbum(int SongId, int AlbumId) {
+            artist Artist = dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name).FirstOrDefaultAsync().Result.ArtistProfile;
+            if (SongId != 0 && AlbumId != 0 && Artist != null)
+            {
+                playlist Album = await dataBaseContext.playlists.Where(p => p.Id == AlbumId).FirstOrDefaultAsync();
+                if (Artist.Albums.Contains(Album))
+                {
+                    song Song = await dataBaseContext.songs.Where(s => s.Id == SongId).FirstOrDefaultAsync();
+                    Album.Songs.Add(Song);
+                    await dataBaseContext.SaveChangesAsync();
+                    return Redirect("/");
+                }
+                else return Redirect("/");
+            }
+            else return Redirect("/");
+        }
+        [HttpPost]
         public async Task<IActionResult> CreateAlbum(AddAlbumViewModel model) {
             if (ModelState.IsValid){
                 user User = await dataBaseContext.users.Where(u => u.UserName == HttpContext.User.Identity.Name).Include(u => u.ArtistProfile).FirstOrDefaultAsync();

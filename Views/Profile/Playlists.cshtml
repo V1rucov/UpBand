@@ -1,23 +1,67 @@
 ﻿@model List<playlist>
 @{
-    Layout = "_Layout";
+    Layout = "_Profile";
 }
-<div style="width: 100%;height: 90px;background-color: #0F0F0F";>
+<style>
+    a.playlist-a-under {
+        border-bottom: solid;
+        border-bottom-color: #2a2d2e;
+    }
+</style>
+
+<div style="padding:10px">
+    <div class="user-profile-box">
+        <p style="font-size:20px;">@Context.Request.Query["UserName"].ToString()</p>
+    </div>
+
+    <div class="profile-nav-bar">
+        <a class="playlist-a-under" href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlists?UserName=@Context.User.Identity.Name">Плейлисты</a>
+        <a class="artists-a-under" href="@Context.Request.Scheme://@Context.Request.Host/Profile/Artists?UserName=@Context.User.Identity.Name">Исполнители</a>
+    </div>
 </div>
 
+
+
 <div class="playlist-list">
-    <div class="favorite-songs">
-        Любимые песни ♡
-    </div>
-    @foreach (var cc in Model)
-     {
-        <div class="playlist-box">
-            <div class="logo-note">
-                <img src="~/static-files/note.svg" width="245" height="125">
-            </div>
-            <div class="info-box">
-                <p>@cc.Name</p>
-            </div>
+    <div class="playlist-box">
+        <div class="logo-note" style="background-color: #FF0033">
+            <img class="heart" src="~/static-files/heart.svg" width="180" height="150" style="margin-top:22px; margin-left:10px;">
         </div>
+        <div class="info-box">
+            <p>Любимые песни</p>
+            <p style="font-size:15px; color:gray"></p>
+        </div>
+    </div>
+
+    @if (Context.User.Identity.Name == Context.Request.Query["UserName"].ToString())
+    {
+        <form method="post" asp-action="CreatePlayList" asp-controller="Profile" id="create-playlist-form" style="display: inline-block">
+            <div class="create-playlist-box" onClick="document.forms['create-playlist-form'].submit();">
+                <div class="cross"></div>
+                <input name="PlaylistName" value="Плейлист" type="hidden">
+            </div>
+        </form>
+
+    }
+    @foreach (var cc in Model)
+    {
+        <a href="@Context.Request.Scheme://@Context.Request.Host/Profile/Playlist?Id=@cc.Id">
+            <div class="playlist-box">
+                <div class="logo-note">
+                    @if (cc.LogoPath == null)
+                    {
+                        <img class="note-img" src="~/static-files/note.svg" width="180" height="150" style="margin-top:22px">
+                    }
+                    else
+                    {
+                        <img src="@Url.Content(cc.LogoPath)" width="200" height="200">
+                    }
+                </div>
+                <div class="info-box">
+                    <p>@cc.Name</p>
+                    <p style="font-size:15px; color:gray">@cc.Owner.UserName</p>
+                </div>
+            </div>
+        </a>
      }
 </div>
